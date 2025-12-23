@@ -31,7 +31,7 @@ app.use("/api/photos", photoRoutes);
 app.use("/api/picture-of-the-day", dailyHighLightRoutes);
 
 
-app.post("/ping", (_req, res) => {
+app.get("/api/ping", (_req, res) => {
   res.json({ ok: true });
 });
 
@@ -41,8 +41,4 @@ app.get("/", (_req, res) => {
 });
 
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+export default app;
