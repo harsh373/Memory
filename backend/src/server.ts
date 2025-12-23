@@ -1,9 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-
 import "./config/cloudinary";
-
 import express from "express";
 import cors from "cors";
 import connectDB from "./config/db";
@@ -15,30 +13,22 @@ import dailyHighLightRoutes from "./routes/dailyHighlightRoutes";
 
 const app = express();
 
-
-
-
 app.use(cors());
 app.use(express.json());
 
+let isConnected = false;
 
-connectDB();
-
+app.use(async (_req, _res, next) => {
+  if (!isConnected) {
+    await connectDB();
+    isConnected = true;
+  }
+  next();
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/photos", photoRoutes);
 app.use("/api/picture-of-the-day", dailyHighLightRoutes);
-
-
-app.get("/api/ping", (_req, res) => {
-  res.json({ ok: true });
-});
-
-
-app.get("/", (_req, res) => {
-  res.send("Backend is running");
-});
-
 
 export default app;
