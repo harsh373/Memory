@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { fetchEvents } from "../api/events.api";
+import { fetchEvents,fetchUpcomingEvents } from "../api/events.api";
 
 type Event = {
   _id: string;
@@ -10,9 +10,21 @@ type Event = {
   coverImageUrl: string;
 };
 
+type UpcomingEvent = {
+  _id: string;
+  name: string;
+  date: string;
+  slug: string;
+  coverImageUrl: string;
+  description?: string;
+} | null;
+
+
 type EventsContextType = {
   events: Event[];
   loading: boolean;
+
+  upcomingEvent: UpcomingEvent
 
   search: string;
   setSearch: (v: string) => void;
@@ -30,21 +42,35 @@ export function EventsProvider({ children }: { children: React.ReactNode }) {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [upcomingEvent, setUpcomingEvent] = useState<UpcomingEvent>(null);
+
+
   const [search, setSearch] = useState("");
   const [year, setYear] = useState<number | null>(null);
   const [category, setCategory] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchEvents()
-      .then(setEvents)
-      .finally(() => setLoading(false));
-  }, []);
+  (async () => {
+    try {
+      const [eventsData, upcoming] = await Promise.all([
+        fetchEvents(),
+        fetchUpcomingEvents()
+      ]);
+      setEvents(eventsData);
+      setUpcomingEvent(upcoming);
+    } finally {
+      setLoading(false);
+    }
+  })();
+}, []);
+
 
   return (
     <EventsContext.Provider
       value={{
         events,
         loading,
+        upcomingEvent,
         search,
         setSearch,
         year,

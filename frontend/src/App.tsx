@@ -22,6 +22,8 @@ import Events from "./pages/Events";
 import Navbar from "./components/Navbar";
 import Featured from "./pages/Featured";
 import About from "./pages/About";
+import Upcoming from "./pages/Upcoming";
+import AdminUpcoming from "./pages/AdminUpcoming";
 
 export default function App() {
   return (
@@ -38,6 +40,7 @@ export default function App() {
             <Route path="/events/:slug" element={<EventPage />} />
             <Route path="/all-event" element={<Events />} />
             <Route path="/featured" element={<Featured />} />
+            <Route path="/upcoming" element ={<Upcoming/>} />
             <Route path="/about"  element ={<About/>}/>
 
               
@@ -71,7 +74,18 @@ export default function App() {
                     <AdminUploadPhotos />
                   </ProtectedRoute>
                 }
-              />
+            />
+            
+            <Route
+              path="/admin/upcoming"
+              element={
+                <ProtectedRoute>
+                  <AdminUpcoming/>
+
+                </ProtectedRoute>
+              }
+            />
+
 
               
               <Route

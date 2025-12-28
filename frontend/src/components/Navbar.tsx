@@ -5,7 +5,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4">
 
-        
+        {/* Top bar */}
         <div className="h-14 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
             <img
@@ -18,20 +18,22 @@ export default function Navbar() {
             </span>
           </Link>
 
-          
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8 text-base">
             {navItem("/", "Home", true)}
             {navItem("/all-event", "Events")}
             {navItem("/featured", "Featured")}
+            {navItem("/upcoming", "Upcoming")}
             {navItem("/about", "About")}
           </nav>
         </div>
 
-        
+        {/* Mobile Nav */}
         <nav className="md:hidden flex justify-center gap-6 pb-2 text-base">
           {navItem("/", "Home", true)}
           {navItem("/all-event", "Events")}
           {navItem("/featured", "Featured")}
+          {navItem("/upcoming", "Upcoming")}
           {navItem("/about", "About")}
         </nav>
 

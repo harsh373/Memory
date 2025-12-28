@@ -45,6 +45,19 @@ export default function AdminDashboard() {
           </p>
         </Link>
 
+        {/* Upcoming Event */}
+        <Link
+          to="/admin/upcoming"
+          className="block rounded-lg border border-slate-200 bg-white p-4 hover:bg-slate-50 transition"
+        >
+          <h2 className="font-medium text-slate-900">
+            Upcoming Event
+          </h2>
+          <p className="text-sm text-slate-600 mt-1">
+            View or manage the next upcoming event
+          </p>
+        </Link>
+
       </div>
     </main>
   );

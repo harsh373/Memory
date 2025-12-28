@@ -51,3 +51,9 @@ export const createEvent = async (
 
   return res.data;
 };
+
+export const fetchUpcomingEvents = async () => {
+  const res = await api.get("/events/upcoming");
+  return res.data.event;
+};
+
