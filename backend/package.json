@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  
   "scripts": {
-    "dev": "nodemon --exec ts-node server.ts",
+    "dev": "nodemon --watch src --ext ts --exec ts-node src/local.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
