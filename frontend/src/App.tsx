@@ -1,4 +1,5 @@
-import {  Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 
 import { AuthProvider } from "./context/AuthContext";
 import { EventsProvider } from "./context/EventsContext";
@@ -98,7 +99,8 @@ export default function App() {
               />
 
           </Routes>
-          <Footer/>
+          <Footer />
+          <Analytics/>
 
           </EventsProvider>
         </PictureOfDayProvider>
