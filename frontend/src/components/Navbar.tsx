@@ -29,7 +29,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Nav */}
-        <nav className="md:hidden flex justify-center gap-6 pb-2 text-base">
+        <nav className="md:hidden flex justify-center gap-5 pb-2 text-base">
           {navItem("/", "Home", true)}
           {navItem("/all-event", "Events")}
           {navItem("/featured", "Featured")}
