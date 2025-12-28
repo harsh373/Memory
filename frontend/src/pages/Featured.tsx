@@ -13,8 +13,8 @@ export default function Featured() {
             Featured Memory
           </h1>
           <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
-            Each day, one photograph is carefully selected from the
-            archive to represent a meaningful moment from campus life.
+            Each day, one photograph is randomly selected by the
+            algorithm to represent a meaningful moment from campus life.
             This selection may reflect an important event, a shared
             memory, or a moment that captures the spirit of the college.
           </p>
