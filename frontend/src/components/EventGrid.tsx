@@ -30,7 +30,7 @@ export default function EventsGrid() {
   );
 
   
-  const visibleEvents = sortedEvents.slice(0, 9);
+  const visibleEvents = sortedEvents.slice(0, 6);
 
   return (
     <section className="px-4 py-8">
