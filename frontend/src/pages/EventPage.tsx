@@ -13,7 +13,6 @@ export default function EventPage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
 
-  
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -34,7 +33,6 @@ export default function EventPage() {
     loadEvent();
   }, [slug]);
 
-  
   if (loading) {
     return (
       <main className="px-4 py-12 text-center text-slate-500">
@@ -51,13 +49,18 @@ export default function EventPage() {
     );
   }
 
-  const imageUrls = photos.map((p) => p.imageUrl);
+  // ✅ FILTER OUT BROKEN / DELETED PHOTOS
+  const validPhotos = photos.filter(
+    (p) => typeof p.imageUrl === "string" && p.imageUrl.trim() !== ""
+  );
+
+  const imageUrls = validPhotos.map((p) => p.imageUrl);
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
       <div className="max-w-6xl mx-auto">
 
-       
+        {/* Event Info */}
         <section className="mb-10">
           <h1 className="text-3xl font-semibold mb-2">
             {event.name}
@@ -72,15 +75,15 @@ export default function EventPage() {
           </p>
         </section>
 
-        
+        {/* Gallery */}
         <section>
-          {photos.length === 0 ? (
+          {validPhotos.length === 0 ? (
             <p className="text-slate-500">
               No photos available for this event.
             </p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {photos.map((photo, index) => (
+              {validPhotos.map((photo, index) => (
                 <div
                   key={photo._id}
                   onClick={() => setLightboxIndex(index)}
@@ -92,11 +95,13 @@ export default function EventPage() {
                     group
                   "
                 >
-                  
                   <div className="aspect-4/3 overflow-hidden">
                     <img
                       src={photo.imageUrl}
                       alt="Event memory"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
                       className="
                         w-full h-full object-cover object-top
                         transition-transform duration-300
@@ -110,7 +115,7 @@ export default function EventPage() {
           )}
         </section>
 
-       
+        {/* Lightbox */}
         {lightboxIndex !== null && (
           <Lightbox
             images={imageUrls}
