@@ -1,11 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function AdminDashboard() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/admin/login");
+  };
+
   return (
     <main className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-8">
-        Admin Panel
-      </h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-2xl font-semibold">
+          Admin Panel
+        </h1>
+
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 text-sm border border-slate-800 rounded hover:bg-slate-800 hover:text-white transition"
+        >
+          Logout
+        </button>
+      </div>
 
       <div className="space-y-4">
 
@@ -45,7 +63,6 @@ export default function AdminDashboard() {
           </p>
         </Link>
 
-        {/* Upcoming Event */}
         <Link
           to="/admin/upcoming"
           className="block rounded-lg border border-slate-200 bg-white p-4 hover:bg-slate-50 transition"

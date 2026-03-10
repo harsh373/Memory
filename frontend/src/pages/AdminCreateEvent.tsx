@@ -8,6 +8,7 @@ export default function AdminCreateEvent() {
     year: "",
     date: "",
     description: "",
+    gdriveLink: "",
     coverImage: null as File | null,
   });
 
@@ -20,21 +21,16 @@ export default function AdminCreateEvent() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setForm((prev) => ({
-        ...prev,
-        coverImage: e.target.files![0],
-      }));
+      setForm((prev) => ({ ...prev, coverImage: e.target.files![0] }));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!form.coverImage) {
       alert("Cover image is required");
       return;
     }
-
     await createEvent({
       name: form.name,
       category: form.category,
@@ -42,28 +38,24 @@ export default function AdminCreateEvent() {
       date: form.date,
       description: form.description,
       coverImage: form.coverImage,
+      gdriveLink: form.gdriveLink || undefined,
     });
-
     alert("Event created successfully");
-
     setForm({
       name: "",
       category: "",
       year: "",
       date: "",
       description: "",
+      gdriveLink: "",
       coverImage: null,
     });
   };
 
   return (
     <main className="max-w-xl mx-auto p-6">
-      <h1 className="text-2xl font-semibold mb-6">
-        Create New Event
-      </h1>
-
+      <h1 className="text-2xl font-semibold mb-6">Create New Event</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-
         <input
           name="name"
           placeholder="Event Name"
@@ -72,7 +64,6 @@ export default function AdminCreateEvent() {
           className="w-full p-2 border rounded"
           required
         />
-
         <input
           name="category"
           placeholder="Category (e.g. Cultural, Sports)"
@@ -81,7 +72,6 @@ export default function AdminCreateEvent() {
           className="w-full p-2 border rounded"
           required
         />
-
         <input
           name="year"
           type="number"
@@ -91,7 +81,6 @@ export default function AdminCreateEvent() {
           className="w-full p-2 border rounded"
           required
         />
-
         <input
           name="date"
           type="date"
@@ -100,7 +89,6 @@ export default function AdminCreateEvent() {
           className="w-full p-2 border rounded"
           required
         />
-
         <textarea
           name="description"
           placeholder="Event description"
@@ -109,15 +97,36 @@ export default function AdminCreateEvent() {
           className="w-full p-2 border rounded"
           rows={4}
         />
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Google Drive Link{" "}
+            <span className="text-slate-400 font-normal">(optional)</span>
+          </label>
+          <input
+            name="gdriveLink"
+            type="url"
+            placeholder="Link for Google drive"
+            value={form.gdriveLink}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          />
+          <p className="mt-1 text-xs text-slate-400">
+            Visitors will see a "More Photos →" button linking here.
+          </p>
+        </div>
 
-       
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="w-full p-2 border rounded"
-          required
-        />
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-1">
+            Cover Photo
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="w-full p-2 border rounded"
+            required
+          />
+        </div>
 
         <button
           type="submit"
@@ -125,7 +134,6 @@ export default function AdminCreateEvent() {
         >
           Create Event
         </button>
-
       </form>
     </main>
   );

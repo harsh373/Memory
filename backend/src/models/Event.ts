@@ -7,7 +7,6 @@ const EventSchema = new mongoose.Schema(
       required: true,
       trim: true
     },
-
     slug: {
       type: String,
       required: true,
@@ -15,28 +14,28 @@ const EventSchema = new mongoose.Schema(
       lowercase: true,
       index: true
     },
-
     category: {
       type: String,
       required: true
     },
-
     year: {
       type: Number,
       required: true
     },
-
     date: {
       type: Date,
       required: true
     },
-
     description: {
       type: String
     },
-
     coverImageUrl: {
       type: String
+    },
+  
+    gdriveLink: {
+      type: String,
+      default: null
     }
   },
   {
@@ -45,5 +44,4 @@ const EventSchema = new mongoose.Schema(
 );
 
 const Event = mongoose.model("Event", EventSchema);
-
 export default Event;

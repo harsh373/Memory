@@ -26,8 +26,7 @@ export const adminLogin = (req: Request, res: Response) => {
 
   const token = jwt.sign(
     { role: "admin" },
-    secret,
-    { expiresIn: "24h" }
+    secret
   );
 
   return res.json({ token });
